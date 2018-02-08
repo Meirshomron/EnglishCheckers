@@ -1,2 +1,2 @@
-# Introduction_to_CS-Assignment1
+# English_Checkers:
 Created the game English Checkers in Java
