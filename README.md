@@ -18,3 +18,8 @@ Evey turn, select the disc you want to move and possible tiles to move to will b
 - Add an intro and game over screens.
 - Make smarter computer strategies.
 - Change the graphic from coloring the tiles to rendering a checkers icons.
+
+##  Images:
+<img  src="Images/englishCheckers_1.png" width="400" >
+<img  src="Images/englishCheckers_2.png" width="400" >
+<img  src="Images/englishCheckers_3.png" width="400" >
