@@ -131,7 +131,7 @@ public class EnglishCheckersGUI extends JFrame implements Runnable {
    
 	private int actualRow(int row) 
 	{
-		return SIZE-1-row;
+		return SIZE - 1 - row;
 	}
    
 	public static void sleep(long millis) 
