@@ -9,8 +9,9 @@ public class EnglishCheckers
 	public static final int BLUE = -1;
 	public static final int EMPTY = 0;
 
-	public static final int BOARD_SIZE = 8;
+	public static final int BOARD_SIZE = 12;
 	public static final int MARK = 3;
+	
 	public static EnglishCheckersGUI grid;
 
 	public static Scanner getPlayerFullMoveScanner = null;
@@ -912,7 +913,7 @@ public class EnglishCheckers
 		for (int moveIdx = 0; moveIdx < moves.length; moveIdx++)
 			if (moves[moveIdx][0] == fromRow & moves[moveIdx][1] == fromColumn)
 				board[moves[moveIdx][2]][moves[moveIdx][3]] = value;
-
+		
 		showBoard(board);
 	}
 
