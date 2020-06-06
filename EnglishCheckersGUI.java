@@ -2,6 +2,7 @@ package BoardGames.EnglishCheckers;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -28,6 +30,11 @@ public class EnglishCheckersGUI extends JFrame implements Runnable {
    
 	private boolean boardEnabled = false;
 	
+	private ImageIcon redDisc;
+	private ImageIcon redQueenDisc;
+	private ImageIcon blueDisc;
+	private ImageIcon blueQueenDisc;
+
 	public EnglishCheckersGUI(int size)
 	{
 		super(title);
@@ -36,8 +43,12 @@ public class EnglishCheckersGUI extends JFrame implements Runnable {
 		grid = new GridLayout(SIZE, SIZE);
 		container = getContentPane();
 		container.setLayout(grid);
-
 		buttons = new JButton[SIZE][SIZE];
+
+		redDisc = new ImageIcon("redDisc.png");
+		redQueenDisc = new ImageIcon("redQueenDisc.png");
+		blueDisc = new ImageIcon("blueDisc.png");
+		blueQueenDisc = new ImageIcon("blueQueenDisc.png");
 
 		for (int row = 0; row < SIZE; ++row)
 			for (int col = 0; col < SIZE; ++col)
@@ -48,7 +59,7 @@ public class EnglishCheckersGUI extends JFrame implements Runnable {
 				buttons[row][col] = new JButton("");
 				buttons[row][col].setToolTipText(actualRow + "," + col);
 				container.add(buttons[row][col]);
-            
+
 				buttons[row][col].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (boardEnabled)
@@ -104,34 +115,53 @@ public class EnglishCheckersGUI extends JFrame implements Runnable {
 				int boardVal = array[actualRow(row)][col];
 
 				Color color = noColor;
+				ImageIcon currentImage = null;
+				
+				// Calculate the checkered background color.
+				if ((actualRow(row) + col) % 2 == 0)
+					color = color.darker();
+				else
+					color = color.brighter();
+				
 				switch (boardVal) 
 				{
-					case EnglishCheckers.EMPTY:
-						if ((actualRow(row) + col) % 2 == 0)
-							color = color.darker();
-						else
-							color = color.brighter();
+					// Mark the possible moves of the currently selected disc yellow.
+					case EnglishCheckers.MARK:      
+						color = Color.YELLOW;   
 						break;
-					case EnglishCheckers.RED:      color = Color.RED;      break;
-					case EnglishCheckers.BLUE:      color = Color.BLUE;      break;
-					case EnglishCheckers.RED * 2:   color = Color.PINK;   break;
-					case EnglishCheckers.BLUE * 2:   color = Color.CYAN;      break;
-					case EnglishCheckers.MARK:      color = Color.YELLOW;   break;
-					default:
-						System.err.println("Unknown value at position " + actualRow(row) + "," + col + "!");
+						
+					// Set the images of the discs according to the board values.
+					case EnglishCheckers.RED:      
+						currentImage = redDisc;
+						break;
+					case EnglishCheckers.BLUE:      
+						currentImage = blueDisc;
+						break;
+					case EnglishCheckers.RED * 2:   
+						currentImage = redQueenDisc;
+						break;
+					case EnglishCheckers.BLUE * 2:   
+						currentImage = blueQueenDisc;
+						break;
 				}
-            
-				if (! buttons[row][col].getBackground().equals(color)) 
+				
+				// Set the checkered background color of the board.
+				if (!buttons[row][col].getBackground().equals(color)) 
 				{
 					buttons[row][col].setBackground(color);
-					buttons[row][col].repaint();
 				}
+				
+				// If the currentImage is null then no image is drawn, otherwise draw the image of the disc at this position.
+				buttons[row][col].setIcon(currentImage);
+				buttons[row][col].repaint();
+				
+				currentImage = null;
 			}
 	}
    
 	private int actualRow(int row) 
 	{
-		return SIZE - 1 - row;
+		return SIZE-1-row;
 	}
    
 	public static void sleep(long millis) 
