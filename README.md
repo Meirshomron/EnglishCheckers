@@ -17,6 +17,7 @@ Evey turn, select the disc you want to move and possible tiles to move to will b
 ## Future Possible Upgrades
 - Add an intro and game over screens.
 - Make smarter computer strategies.
+- Add scores and a restart button.
 
 ##  Images:
 <img  src="Images/englishCheckers_4.png" width="400" >
